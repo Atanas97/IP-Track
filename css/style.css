@@ -1,0 +1,139 @@
+@import url("https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap");
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Rubik", sans-serif;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+.header-wrap {
+  background: url(../images/pattern-bg.png) no-repeat;
+  background-position: center;
+  background-size: 100% 100%;
+  height: 30vh;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding-top: 2rem;
+}
+
+.header-wrap h1 {
+  color: #fff;
+  font-weight: 500;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.form-field {
+  display: flex;
+  align-items: center;
+  height: 5rem;
+}
+.form-search {
+  width: 90%;
+}
+
+.form-field input {
+  padding-left: 0.75rem;
+  border-top-left-radius: 0.75rem;
+  border-bottom-left-radius: 0.75rem;
+  border: none;
+  width: 100%;
+  height: 100%;
+  font-size: 1.5rem;
+}
+
+.form-field:focus {
+  border: 0.2rem solid rgb(28, 111, 189);
+  border-radius: 0.75rem;
+}
+
+.form-field .fa-chevron-right {
+  color: #fff;
+  background: #000;
+  border-top-right-radius: 0.75rem;
+  border-bottom-right-radius: 0.75rem;
+  height: 100%;
+  width: 15%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.65rem;
+  cursor: pointer;
+}
+
+/*Modal pop up styles*/
+.modal-wrap {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+.modal {
+  width: 90%;
+  margin: 0 auto;
+  position: absolute;
+  border-radius: 0.75rem;
+  background: #fff;
+  text-align: center;
+  top: -7rem;
+  z-index: 1111;
+  opacity: 0;
+  transition: 150ms opacity ease-in-out;
+}
+.modal-row {
+  margin: 2rem 0;
+}
+
+.modal-row small {
+  color: #ccc;
+  text-transform: uppercase;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.modal-row h3 {
+  color: #333;
+  font-size: 1.5rem;
+  margin-top: 0.5rem;
+}
+
+/*Leaflet map styles*/
+.leaflet-map {
+  height: 70vh;
+}
+
+/*Loader gif*/
+.loader {
+  visibility: hidden;
+  opacity: 0;
+}
+
+.loader.display {
+  visibility: visible;
+  opacity: 1;
+}
+.modal.active {
+  opacity: 1;
+}
+.loader img {
+  width: 100%;
+  display: block;
+  border-radius: 0.75rem;
+}
+.hidden {
+  animation: loader 1s forwards;
+}
+
+@keyframes loader {
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
