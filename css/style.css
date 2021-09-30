@@ -107,7 +107,7 @@ html {
 
 /*Leaflet map styles*/
 .leaflet-map {
-  height: 70vh;
+  height: 50rem;
 }
 
 /*Loader gif*/
