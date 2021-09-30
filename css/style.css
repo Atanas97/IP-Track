@@ -71,7 +71,6 @@ html {
 
 /*Modal pop up styles*/
 .modal-wrap {
-  position: relative;
   display: flex;
   justify-content: center;
 }
