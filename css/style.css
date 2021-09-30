@@ -81,7 +81,7 @@ html {
   border-radius: 0.75rem;
   background: #fff;
   text-align: center;
-  top: 20%;
+  top: 15rem;
   z-index: 1111;
   opacity: 0;
   transition: 150ms opacity ease-in-out;
