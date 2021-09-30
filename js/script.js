@@ -2,7 +2,7 @@ const API_KEY = `at_wSrq3J94WLj2d48uZpuaHgg0h9OyL`
 const searchInput = document.querySelector('.search-input')
 const enterArrow = document.querySelector('.fa-chevron-right')
 const form = document.getElementsByTagName('form')[0]
-
+const modal = document.querySelector('.modal')
 const getIPData = async function () {
     let searchInput = document.querySelector('.search-input').value.trim()
     addLoader()
@@ -48,7 +48,8 @@ const getIPData = async function () {
     else {
         dynamicJS.innerHTML = `<h1> No such IP found! </h1>`
     }
-    dynamicJS.innerHTML = html
+    modal.innerHTML = html
+    //dynamicJS.innerHTML = html
     searchInput.value = ''
     removeLoader()
 }
@@ -74,7 +75,7 @@ function removeLoader () {
 }
 
 function addLoader() {
-  const modal = document.querySelector('.modal')
+  
   modal.classList.add('active')
   loader.classList.add('display')
 
@@ -83,12 +84,13 @@ function addLoader() {
 
 const updateMap = ([lat, lng]) => {
   
+  
   const customPin = L.icon({
     iconUrl: './images/icon-location.svg',
     iconSize: [50, 60]
   })
+
   //Display map
-  if (map != undefined) map.remove();
   var map = L.map('map').setView([lat, lng], 13);
   
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -97,5 +99,5 @@ const updateMap = ([lat, lng]) => {
 
   L.marker([lat, lng], {icon: customPin}).addTo(map)
       .openPopup();
-      map.invalidateSize();   
+      map.invalidateSize([lat, lng]);   
 }

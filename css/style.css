@@ -111,12 +111,12 @@ html {
 
 /*Loader gif*/
 .loader {
-  visibility: hidden;
+  /* visibility: hidden; */
   opacity: 0;
 }
 
 .loader.display {
-  visibility: visible;
+  /* visibility: visible; */
   opacity: 1;
 }
 .modal.active {
@@ -128,12 +128,12 @@ html {
   border-radius: 0.75rem;
 }
 .hidden {
-  animation: loader 1s forwards;
+  animation: loader 1s;
 }
 
 @keyframes loader {
   100% {
     opacity: 0;
-    visibility: hidden;
+    /* visibility: hidden; */
   }
 }
