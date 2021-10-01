@@ -3,57 +3,73 @@ const searchInput = document.querySelector('.search-input')
 const enterArrow = document.querySelector('.fa-chevron-right')
 const form = document.getElementsByTagName('form')[0]
 const modal = document.querySelector('.modal')
+const formField = document.querySelector('.form-field')
+
 const getIPData = async function () {
+    const controller = new AbortController()
+    const signal = controller.signal
     let searchInput = document.querySelector('.search-input').value.trim()
     addLoader()
-    const getData = await fetch(`https://geo.ipify.org/api/v1?apiKey=${API_KEY}&ipAddress=${searchInput}`)
+    checkGivenIP(searchInput, validateInput('IP Cannot contain higher than 255 number'))
+    const getData = await fetch(`https://geo.ipify.org/api/v1?apiKey=${API_KEY}&ipAddress=${searchInput}`,{
+      signal: signal
+    })
     const data = await getData.json()
+    
+    if(!getData.ok){
+        throw new Error(error + validateInput(formField,'Please enter a valid IP'))
+    }
+
+    if(getData.ok) removeError()
     const {lat:lat, lng:lng} = data.location
 
     renderData(data)
     updateMap([lat, lng])
-  }
+}
   
+  const dynamicJS = document.querySelector('.dynamic-js')
   function renderData(data) {
     
-    const dynamicJS = document.querySelector('.dynamic-js')
     console.log(data)
     const {ip, isp, location:{city, country, region, timezone}} = data
     
     let html = ''
     if(data) {
+
+      try {
+        
         html = `
         <div class="modal-row">
         <small>ip address</small>
         <h3>${ip}</h3>
       </div>
-
+  
       <div class="modal-row">
         <small>location</small>
         <h3>${city} ,${region}</h3>
       </div>
-
+  
       <div class="modal-row">
         <small>Timezone</small>
         <h3>UTC ${timezone}</h3>
       </div>
-
+  
       <div class="modal-row">
         <small>ISP</small>
         <h3>${isp}</h3>
       </div>
         `
-    }
+        removeLoader()
+        dynamicJS.innerHTML = html
+        searchInput.value = ''
     
-    else {
-        dynamicJS.innerHTML = `<h1> No such IP found! </h1>`
-    }
-    modal.innerHTML = html
-    //dynamicJS.innerHTML = html
-    searchInput.value = ''
-    removeLoader()
-}
+      } catch (error) {
+        console.log(error)
+      }
 
+    //modal.innerHTML = html
+  }
+}
 
 form.addEventListener('submit', (e) => {
     e.preventDefault()
@@ -69,9 +85,7 @@ enterArrow.addEventListener('click', getIPData)
 const loader = document.querySelector('.loader')
 
 function removeLoader () {
-  window.addEventListener('load', () => {
-    loader.classList.remove('display')
-  })
+  loader.classList.remove("display");
 }
 
 function addLoader() {
@@ -84,7 +98,11 @@ function addLoader() {
 
 const updateMap = ([lat, lng]) => {
   
-  
+  var container = L.DomUtil.get('map')
+  if (container != null){
+    container._leaflet_id=null
+  }
+
   const customPin = L.icon({
     iconUrl: './images/icon-location.svg',
     iconSize: [50, 60]
@@ -100,4 +118,30 @@ const updateMap = ([lat, lng]) => {
   L.marker([lat, lng], {icon: customPin}).addTo(map)
       .openPopup();
       map.invalidateSize([lat, lng]);   
+}
+
+
+//Validating input 
+const errorMsg = document.querySelector('.error-msg')
+const validateInput = (message, input) => {
+  console.log(input)
+  formField.classList.add('error')
+  errorMsg.classList.add('error')
+  errorMsg.textContent = message
+
+}
+
+const removeError = () => {
+  formField.classList.remove('error')
+  errorMsg.textContent = ''
+  errorMsg.classList.remove('error')
+}
+
+
+function checkGivenIP(ip){
+  const ipArr = ip.split('.')
+  ipArr.map(num => {
+    if(num > 255) validateInput('IP address cannot be higher than 255')
+  })
+  console.log(ipArr)
 }

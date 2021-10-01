@@ -55,6 +55,14 @@ html {
   border-radius: 0.75rem;
 }
 
+.form-field.error {
+  border: 2px solid #f31a1a;
+  border-radius: 0.75rem;
+}
+.form-field.error:focus {
+  border: none;
+}
+
 .form-field .fa-chevron-right {
   color: #fff;
   background: #000;
@@ -67,6 +75,17 @@ html {
   align-items: center;
   font-size: 1.65rem;
   cursor: pointer;
+}
+
+.error-msg {
+  display: inline-block;
+  color: #f31a1a;
+  font-size: 1.4rem;
+  padding-top: 0.5rem;
+  visibility: hidden;
+}
+.error-msg.error {
+  visibility: visible;
 }
 
 /*Modal pop up styles*/
@@ -85,7 +104,6 @@ html {
   z-index: 1111;
   opacity: 0;
   transition: 150ms opacity ease-in-out;
-  padding: 1rem;
 }
 .modal-row {
   margin: 1.5rem 0;
@@ -111,12 +129,14 @@ html {
 
 /*Loader gif*/
 .loader {
-  /* visibility: hidden; */
+  visibility: hidden;
   opacity: 0;
+  position: absolute;
+  top: 0;
 }
 
 .loader.display {
-  /* visibility: visible; */
+  visibility: visible;
   opacity: 1;
 }
 .modal.active {
@@ -134,6 +154,6 @@ html {
 @keyframes loader {
   100% {
     opacity: 0;
-    /* visibility: hidden; */
+    visibility: hidden;
   }
 }
