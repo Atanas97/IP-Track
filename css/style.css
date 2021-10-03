@@ -55,11 +55,6 @@ html {
   border-radius: 0.75rem;
 }
 
-.form-field.error {
-  border: 2px solid #f31a1a;
-  border-radius: 0.75rem;
-}
-
 .form-field .fa-chevron-right {
   color: #fff;
   background: #000;
@@ -72,17 +67,6 @@ html {
   align-items: center;
   font-size: 1.65rem;
   cursor: pointer;
-}
-
-.error-msg {
-  display: inline-block;
-  color: #f31a1a;
-  font-size: 1.4rem;
-  padding-top: 0.5rem;
-  visibility: hidden;
-}
-.error-msg.error {
-  visibility: visible;
 }
 
 /*Modal pop up styles*/
@@ -117,6 +101,28 @@ html {
   color: #333;
   font-size: 1.5rem;
   margin-top: 0.5rem;
+}
+
+@media screen and (min-width: 768px) {
+  .dynamic-js {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 4rem 0;
+  }
+  .form-field,
+  .modal,
+  .loader {
+    max-width: 50%;
+    margin: 0 auto;
+  }
+  .loader {
+    max-width: 100%;
+    height: 100%;
+  }
+  .loader img {
+    height: 100%;
+  }
 }
 
 /*Leaflet map styles*/
