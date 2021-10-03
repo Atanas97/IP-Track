@@ -10,17 +10,14 @@ const getIPData = async function () {
     const signal = controller.signal
     let searchInput = document.querySelector('.search-input').value.trim()
     addLoader()
-    checkGivenIP(searchInput, validateInput('IP Cannot contain higher than 255 number'))
+
     const getData = await fetch(`https://geo.ipify.org/api/v1?apiKey=${API_KEY}&ipAddress=${searchInput}`,{
       signal: signal
     })
     const data = await getData.json()
     
-    if(!getData.ok){
-        throw new Error(error + validateInput(formField,'Please enter a valid IP'))
-    }
 
-    if(getData.ok) removeError()
+    
     const {lat:lat, lng:lng} = data.location
 
     renderData(data)
@@ -121,27 +118,3 @@ const updateMap = ([lat, lng]) => {
 }
 
 
-//Validating input 
-const errorMsg = document.querySelector('.error-msg')
-const validateInput = (message, input) => {
-  console.log(input)
-  formField.classList.add('error')
-  errorMsg.classList.add('error')
-  errorMsg.textContent = message
-
-}
-
-const removeError = () => {
-  formField.classList.remove('error')
-  errorMsg.textContent = ''
-  errorMsg.classList.remove('error')
-}
-
-
-function checkGivenIP(ip){
-  const ipArr = ip.split('.')
-  ipArr.map(num => {
-    if(num > 255) validateInput('IP address cannot be higher than 255')
-  })
-  console.log(ipArr)
-}

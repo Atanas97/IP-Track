@@ -59,9 +59,6 @@ html {
   border: 2px solid #f31a1a;
   border-radius: 0.75rem;
 }
-.form-field.error:focus {
-  border: none;
-}
 
 .form-field .fa-chevron-right {
   color: #fff;
